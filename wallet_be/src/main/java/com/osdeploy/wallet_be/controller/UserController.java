@@ -55,6 +55,9 @@ public class UserController {
                 return ResponseEntity.notFound().build();
             }
             user.setUsername(userDetails.getUsername());
+            if (userDetails.getPassword() != null && !userDetails.getPassword().isEmpty()) {
+                user.setPassword(userDetails.getPassword());
+            }
             User updatedUser = userService.createUser(user); // save updated user
             return ResponseEntity.ok(updatedUser);
         }

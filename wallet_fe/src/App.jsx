@@ -45,7 +45,6 @@ function AppRoutes() {
     <>
       <nav style={{display: 'flex', gap: '20px', justifyContent: 'center', margin: '20px 0'}}>
         <Link to="/">Home</Link>
-        <Link to="/register">Register User</Link>
         <Link to="/admin/users">User Admin</Link>
         {loggedInUser && <button style={{marginLeft: '20px'}} onClick={handleLogout}>Logout</button>}
       </nav>
