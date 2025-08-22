@@ -36,7 +36,7 @@ public class UserController {
         User createdUser = userService.createUser(user);
         // Automatically create wallet for new user
         com.osdeploy.wallet_be.model.Wallet wallet = new com.osdeploy.wallet_be.model.Wallet();
-        wallet.setUserId(createdUser.getId());
+        wallet.setUserId(createdUser.getId() != null ? createdUser.getId().intValue() : null);
         wallet.setBalance(0.0); // Initial balance
         walletService.createWallet(wallet);
         return ResponseEntity.ok(createdUser);
