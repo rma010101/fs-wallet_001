@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import styles from "./UserRegistration.module.css";
 
 const UserRegistration = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -14,6 +16,9 @@ const UserRegistration = () => {
       setMessage("User registered successfully!");
       setUsername("");
       setPassword("");
+      setTimeout(() => {
+        navigate("/wallet");
+      }, 1200);
     } catch (error) {
       console.error("Registration error:", error);
       setMessage("Registration failed.");

@@ -7,6 +7,10 @@ const WalletDetails = ({ user }) => {
   const [error, setError] = useState("");
   const [amount, setAmount] = useState("");
   const [message, setMessage] = useState("");
+  const [showEdit, setShowEdit] = useState(false);
+  const [newUsername, setNewUsername] = useState(user.username);
+  const [newPassword, setNewPassword] = useState("");
+  const [editMsg, setEditMsg] = useState("");
 
   useEffect(() => {
     if (!user) return;
@@ -53,6 +57,20 @@ const WalletDetails = ({ user }) => {
     setMessage("");
   };
 
+  const handleEditUser = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.put(`http://localhost:8080/api/users/${user.id}`, {
+        username: newUsername,
+        password: newPassword
+      });
+      setEditMsg("User info updated!");
+      setShowEdit(false);
+    } catch {
+      setEditMsg("Failed to update user info.");
+    }
+  };
+
   if (!user) return null;
 
   return (
@@ -76,6 +94,30 @@ const WalletDetails = ({ user }) => {
             <button className={styles.button} onClick={handleCancel}>Cancel</button>
           </div>
           {message && <p className={styles.message}>{message}</p>}
+          <button className={styles.button} style={{marginTop: 18}} onClick={() => setShowEdit(true)}>Edit Username/Password</button>
+          {showEdit && (
+            <form onSubmit={handleEditUser} style={{marginTop: 16, display: 'flex', flexDirection: 'column', gap: '10px', alignItems: 'center'}}>
+              <input
+                type="text"
+                value={newUsername}
+                onChange={e => setNewUsername(e.target.value)}
+                placeholder="New Username"
+                className={styles.input}
+                required
+              />
+              <input
+                type="password"
+                value={newPassword}
+                onChange={e => setNewPassword(e.target.value)}
+                placeholder="New Password"
+                className={styles.input}
+                required
+              />
+              <button type="submit" className={styles.button}>Save Changes</button>
+              <button type="button" className={styles.button} style={{background: '#e5e7eb', color: '#222'}} onClick={() => setShowEdit(false)}>Cancel</button>
+              {editMsg && <p className={styles.message}>{editMsg}</p>}
+            </form>
+          )}
         </>
       ) : (
         <p className={styles.error}>{error}</p>

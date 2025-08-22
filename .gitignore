@@ -1,0 +1,29 @@
+# Node.js
+wallet_fe/node_modules/
+
+# Java
+wallet_be/target/
+
+# IDE settings
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment/config
+*.env
+wallet_be/src/main/resources/application-local.properties
+
+# Log files
+*.log
+
+# Build output
+/dist/
+/build/
+
+# Misc
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
